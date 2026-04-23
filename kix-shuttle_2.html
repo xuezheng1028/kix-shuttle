@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+  ✏️  サイト基本情報 / SITE BASIC INFO
+  ここを編集してください / Edit the fields below
+  ============================================================ -->
+<title>KIX Shuttle — 関西国際空港 専門送迎サービス</title>
+<meta name="description" content="大阪・関西国際空港の専門送迎サービス。アルファード・テスラで快適な空港送迎を提供します。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   🎨  DESIGN TOKENS — カラー・フォント設定
+   ここの色を変えるとサイト全体に反映されます
+   ============================================================ */
+:root {
+  --gold:        #C49A3C;   /* メインゴールド / Main accent gold */
+  --gold-light:  #E2BB6A;   /* ライトゴールド */
+  --gold-dim:    rgba(196,154,60,0.12);
+  --dark:        #080C12;   /* 最暗背景 */
+  --dark2:       #0F1520;   /* セクション背景 */
+  --dark3:       #16202E;   /* カード背景 */
+  --dark4:       #1D2A3A;   /* インプット背景 */
+  --text:        #EAE8E2;   /* 本文テキスト */
+  --text-muted:  #8A8880;   /* サブテキスト */
+  --border:      rgba(196,154,60,0.18);
+  --border-soft: rgba(255,255,255,0.07);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   LANG SYSTEM
+   ============================================================ */
+.en { display:none; }
+.ja { display:block; }
+.en-inline { display:none; }
+.ja-inline { display:inline; }
+body.lang-en .en { display:block; }
+body.lang-en .ja { display:none; }
+body.lang-en .en-inline { display:inline; }
+body.lang-en .ja-inline { display:none; }
+
+/* ============================================================
+   LANG BAR
+   ============================================================ */
+.lang-bar {
+  background: var(--dark2);
+  border-bottom: 0.5px solid var(--border);
+  padding: 7px 48px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+.lang-btn {
+  background: transparent;
+  border: 0.5px solid transparent;
+  border-radius: 3px;
+  padding: 3px 12px;
+  font-size: 11px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text-muted);
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: all .2s;
+}
+.lang-btn.active {
+  border-color: rgba(196,154,60,0.5);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: sticky; top: 0;
+  background: rgba(8,12,18,0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid var(--border);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 66px;
+}
+.nav-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-decoration: none;
+}
+.nav-brand-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+.nav-brand-sub {
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 100%;
+  height: 1px;
+  background: var(--gold);
+  transition: right .25s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { right: 0; }
+.nav-cta {
+  background: var(--gold);
+  color: var(--dark);
+  padding: 9px 22px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  transition: background .2s, transform .15s;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 48px 80px;
+}
+
+/* 背景画像 / Hero background image */
+.hero-bg-img {
+  position: absolute; inset: 0;
+  /* ✏️ 背景画像URLを変更できます / Change background image URL */
+  background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80');
+  background-size: cover;
+  background-position: center 40%;
+  filter: brightness(0.22) saturate(0.6);
+  transform: scale(1.04);
+  animation: heroZoom 20s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.10); }
+}
+
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(8,12,18,0.95) 0%,
+    rgba(8,12,18,0.7) 50%,
+    rgba(8,12,18,0.3) 100%
+  );
+}
+
+/* ライン装飾 */
+.hero-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 52%;
+  width: 0.5px;
+  background: linear-gradient(to bottom, transparent, rgba(196,154,60,0.25), transparent);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.hero-eyebrow-dot {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.4; transform:scale(.7); }
+}
+.hero-eyebrow-line {
+  width: 40px; height: 0.5px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px, 5.5vw, 72px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.hero h1 em { color: var(--gold); font-style: normal; }
+
+.hero-subtitle {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 400;
+  color: rgba(234,232,226,0.7);
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
+}
+
+.hero p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 44px;
+  max-width: 460px;
+  line-height: 1.9;
+}
+
+.hero-actions { display:flex; gap:14px; flex-wrap:wrap; }
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--dark);
+  padding: 14px 30px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none; cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: background .2s, transform .15s;
+  display: inline-block;
+}
+.btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  padding: 14px 30px;
+  border-radius: 3px;
+  font-size: 13px;
+  text-decoration: none;
+  border: 0.5px solid rgba(255,255,255,0.2);
+  letter-spacing: 0.06em;
+  transition: border-color .2s, color .2s;
+  display: inline-block;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Hero floating stats */
+.hero-stats {
+  position: absolute;
+  right: 64px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.stat-pill {
+  background: rgba(15,21,32,0.85);
+  border: 0.5px solid var(--border);
+  border-radius: 6px;
+  padding: 18px 26px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  min-width: 130px;
+}
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-unit { font-size: 16px; }
+.stat-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  animation: bounce 2.5s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(6px); }
+}
+.scroll-arrow {
+  width: 18px; height: 18px;
+  border-right: 0.5px solid var(--gold);
+  border-bottom: 0.5px solid var(--gold);
+  transform: rotate(45deg);
+}
+
+/* ============================================================
+   ROUTE BANNER
+   ============================================================ */
+.route-banner {
+  background: var(--dark2);
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  padding: 22px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  overflow-x: auto;
+}
+.route-node {
+  background: var(--gold-dim);
+  border: 0.5px solid rgba(196,154,60,0.3);
+  border-radius: 4px;
+  padding: 10px 20px;
+  text-align: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.route-node-name { font-size: 13px; font-weight: 500; }
+.route-node-sub  { font-size: 10px; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.04em; }
+.route-sep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 14px;
+  flex-shrink: 0;
+}
+.route-sep-line {
+  width: 40px; height: 0.5px;
+  background: linear-gradient(90deg, rgba(196,154,60,0.3), rgba(196,154,60,0.6));
+  position: relative;
+}
+.route-sep-line::after {
+  content:'';
+  position:absolute; right:-4px; top:-4px;
+  border: 5px solid transparent;
+  border-left: 8px solid rgba(196,154,60,0.6);
+}
+.route-sep-label { font-size: 9px; color: var(--gold); letter-spacing: 0.08em; }
+
+/* ============================================================
+   SECTION COMMONS
+   ============================================================ */
+section { padding: 100px 48px; }
+.sec-label {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.sec-bar {
+  width: 36px; height: 1.5px;
+  background: var(--gold);
+  margin-bottom: 14px;
+}
+.sec-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+.sec-title-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.sec-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  max-width: 500px;
+  line-height: 1.9;
+  margin-bottom: 56px;
+}
+
+/* ============================================================
+   FLEET SECTION
+   ============================================================ */
+#fleet { background: var(--dark); position: relative; overflow: hidden; }
+#fleet::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(196,154,60,0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.fleet-header { text-align: center; margin-bottom: 64px; }
+.fleet-header .sec-bar { margin: 0 auto 14px; }
+.fleet-header .sec-sub { margin: 0 auto; text-align: center; }
+
+.fleet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.fleet-card {
+  background: var(--dark3);
+  border: 0.5px solid var(--border-soft);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color .3s, transform .3s;
+  position: relative;
+}
+.fleet-card:hover {
+  border-color: rgba(196,154,60,0.35);
+  transform: translateY(-4px);
+}
+
+/* ✏️ 車両画像 / Vehicle images — URLを変更してください */
+.fleet-img-wrap {
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+.fleet-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .6s ease;
+  filter: brightness(0.9) saturate(0.95);
+}
+.fleet-card:hover .fleet-img-wrap img { transform: scale(1.04); }
+
+.fleet-img-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--dark3) 0%, transparent 55%);
+}
+
+.fleet-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: rgba(196,154,60,0.15);
+  border: 0.5px solid rgba(196,154,60,0.45);
+  border-radius: 3px;
+  padding: 4px 12px;
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.fleet-body { padding: 28px 30px 32px; }
+
+.fleet-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+.fleet-name-ja {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px;
+  color: var(--gold);
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.fleet-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 22px;
+}
+
+.fleet-specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-soft);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.fleet-spec {
+  background: var(--dark4);
+  padding: 12px 10px;
+  text-align: center;
+}
+.fleet-spec-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.fleet-spec-key {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+.fleet-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.feat-tag {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid var(--border-soft);
+  border-radius: 3px;
+  padding: 4px 11px;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   ABOUT / COVERAGE
+   ============================================================ */
+#about { background: var(--dark2); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: start;
+}
+.about-feature {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.feat-icon {
+  width: 40px; height: 40px;
+  background: var(--gold-dim);
+  border: 0.5px solid rgba(196,154,60,0.25);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+}
+.feat-icon-text h4 { font-size: 14px; font-weight: 500; margin-bottom: 5px; }
+.feat-icon-text p  { font-size: 12px; color: var(--text-muted); line-height: 1.8; }
+
+.area-panel {
+  background: var(--dark3);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+}
+.area-panel-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.area-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.area-chip {
+  background: var(--dark4);
+  border: 0.5px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 13px 14px;
+  transition: border-color .2s;
+}
+.area-chip:hover { border-color: rgba(196,154,60,0.3); }
+.area-chip-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+.area-chip-sub  { font-size: 10px; color: var(--text-muted); }
+.area-chip-price{ font-size: 12px; color: var(--gold); margin-top: 7px; font-weight: 500; }
+.area-note { font-size: 10px; color: var(--text-muted); margin-top: 14px; line-height: 1.65; }
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+#services { background: var(--dark); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.svc-card {
+  background: var(--dark3);
+  padding: 36px 28px;
+  transition: background .25s;
+  cursor: default;
+}
+.svc-card:hover { background: #1C2840; }
+.svc-icon { font-size: 26px; margin-bottom: 14px; display: block; }
+.svc-title { font-size: 16px; font-weight: 500; margin-bottom: 8px; line-height: 1.4; }
+.svc-desc  { font-size: 12px; color: var(--text-muted); line-height: 1.85; margin-bottom: 16px; }
+.svc-tag {
+  display: inline-block;
+  background: var(--gold-dim);
+  border: 0.5px solid rgba(196,154,60,0.25);
+  border-radius: 3px;
+  padding: 3px 10px;
+  font-size: 10px; color: var(--gold); letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   FARE CALCULATOR
+   ============================================================ */
+#calculator { background: var(--dark2); }
+.calc-wrap { max-width: 700px; margin: 0 auto; }
+.calc-card {
+  background: var(--dark3);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.calc-head {
+  background: linear-gradient(135deg, var(--dark4) 0%, #111826 100%);
+  padding: 24px 32px;
+  border-bottom: 0.5px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+.calc-head-icon { font-size: 22px; }
+.calc-head-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 17px; font-weight: 600; color: var(--gold);
+}
+.calc-head-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.calc-body { padding: 32px; }
+
+.flabel {
+  font-size: 10px; color: var(--text-muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 8px; display: block;
+}
+.fselect, .finput {
+  width: 100%;
+  background: var(--dark4);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 11px 14px;
+  font-size: 14px; color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  outline: none;
+  transition: border-color .2s;
+  -webkit-appearance: none;
+  margin-bottom: 16px;
+}
+.fselect:focus, .finput:focus { border-color: rgba(196,154,60,0.45); }
+.fselect option { background: var(--dark4); }
+
+.radio-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.rbtn {
+  flex: 1;
+  background: var(--dark4);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 12px; color: var(--text-muted);
+  cursor: pointer; transition: all .2s;
+  user-select: none; line-height: 1.45;
+  min-width: 80px;
+}
+.rbtn.on {
+  background: rgba(196,154,60,0.1);
+  border-color: rgba(196,154,60,0.45);
+  color: var(--gold);
+}
+
+.calc-result {
+  background: linear-gradient(135deg, rgba(196,154,60,0.07), rgba(196,154,60,0.02));
+  border: 0.5px solid rgba(196,154,60,0.22);
+  border-radius: 10px;
+  padding: 26px;
+  margin-top: 20px;
+  display: none;
+}
+.calc-result.show { display: block; }
+.res-label { font-size: 10px; color: var(--text-muted); letter-spacing: 0.12em; margin-bottom: 10px; text-transform: uppercase; }
+.res-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 18px; }
+.res-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px; font-weight: 700; color: var(--gold); line-height: 1;
+}
+.res-curr { font-size: 20px; color: var(--text-muted); }
+.res-range { font-size: 14px; color: var(--text-muted); }
+.breakdown {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border-top: 0.5px solid var(--border);
+}
+.bk { display: flex; justify-content: space-between; font-size: 12px; padding: 7px 0; border-bottom: 0.5px solid var(--border); }
+.bk:nth-last-child(-n+2) { border-bottom: none; }
+.bk-l { color: var(--text-muted); }
+.bk-v { color: var(--text); font-weight: 500; }
+.calc-note { font-size: 10px; color: var(--text-muted); margin-top: 14px; line-height: 1.7; }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+#contact { background: var(--dark); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.cinfo-item { display: flex; gap: 14px; margin-bottom: 22px; align-items: flex-start; }
+.cinfo-icon {
+  width: 36px; height: 36px;
+  background: var(--gold-dim);
+  border: 0.5px solid rgba(196,154,60,0.22);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.cinfo-text strong { display: block; font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 3px; text-transform: uppercase; }
+.cinfo-text span { font-size: 14px; line-height: 1.65; }
+
+.cform .finput, .cform .fselect, .cform textarea {
+  width: 100%;
+  background: var(--dark3);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 11px 14px;
+  font-size: 14px; color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  outline: none;
+  transition: border-color .2s;
+  display: block; margin-bottom: 12px;
+  -webkit-appearance: none;
+}
+.cform textarea { height: 90px; resize: none; }
+.cform .finput:focus, .cform .fselect:focus, .cform textarea:focus { border-color: rgba(196,154,60,0.45); }
+.cform .fselect option { background: var(--dark3); }
+
+.form-success {
+  background: rgba(50,200,100,0.07);
+  border: 0.5px solid rgba(50,200,100,0.25);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 13px; color: #72E5A0;
+  display: none; margin-top: 10px;
+}
+.form-success.show { display: block; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--dark2);
+  border-top: 0.5px solid var(--border);
+  padding: 36px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-brand-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 700; color: var(--gold);
+}
+.footer-brand-sub { font-size: 10px; color: var(--text-muted); letter-spacing: 0.12em; margin-top: 3px; }
+.footer-copy { font-size: 11px; color: var(--text-muted); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 11px; color: var(--text-muted); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--gold); }
+
+/* ============================================================
+   RESPONSIVE (basic)
+   ============================================================ */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 80px; }
+  .hero-stats { display: none; }
+  .hero-line { display: none; }
+  .lang-bar { padding: 7px 24px; }
+  section { padding: 72px 24px; }
+  .route-banner { padding: 18px 24px; }
+  .fleet-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+   LANGUAGE BAR
+   ============================================================ -->
+<div class="lang-bar">
+  <span style="margin-right:4px;">Language:</span>
+  <button class="lang-btn active" onclick="setLang('ja')">日本語</button>
+  <button class="lang-btn"        onclick="setLang('en')">English</button>
+</div>
+
+<!-- ============================================================
+   NAV
+   ✏️ ロゴ・メニュー・電話番号を変更できます
+   ============================================================ -->
+<nav>
+  <a class="nav-brand" href="#home">
+    <!-- ✏️ ブランド名 / Brand name -->
+    <span class="nav-brand-main">KIX Shuttle</span>
+    <span class="nav-brand-sub">
+      <span class="ja">関西国際空港 専門送迎</span>
+      <span class="en">Kansai Airport Transfer · Osaka</span>
+    </span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#fleet">   <span class="ja">車両紹介</span>    <span class="en">Fleet</span></a></li>
+    <li><a href="#about">   <span class="ja">エリア</span>       <span class="en">Coverage</span></a></li>
+    <li><a href="#services"><span class="ja">サービス</span>     <span class="en">Services</span></a></li>
+    <li><a href="#calculator"><span class="ja">料金計算</span>   <span class="en">Fares</span></a></li>
+    <li><a href="#contact"> <span class="ja">お問い合わせ</span> <span class="en">Contact</span></a></li>
+  </ul>
+  <!-- ✏️ 電話番号 / Phone number -->
+  <a class="nav-cta" href="tel:06-0000-0000">
+    <span class="ja">✈ 今すぐ予約</span>
+    <span class="en">✈ Book Now</span>
+  </a>
+</nav>
+
+<!-- ============================================================
+   HERO
+   ✏️ キャッチコピー・説明文を変更できます
+   ============================================================ -->
+<section class="hero" id="home">
+  <!-- ✏️ 背景画像 background image URL -->
+  <div class="hero-bg-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <!-- ✏️ バッジテキスト / Eyebrow badge text -->
+      <span class="ja">関西国際空港 専門送迎サービス · 大阪</span>
+      <span class="en">KIX AIRPORT SPECIALIST · OSAKA, JAPAN</span>
+      <div class="hero-eyebrow-line"></div>
+    </div>
+
+    <!-- ✏️ メインタイトル / Main headline (JA) -->
+    <h1 class="ja">上質な<em>空港送迎</em>を<br>あなたの旅に</h1>
+    <!-- ✏️ メインタイトル / Main headline (EN) -->
+    <h1 class="en" style="font-family:'Cormorant Garamond',serif;font-size:clamp(42px,5.5vw,68px);font-weight:700;line-height:1.1;margin-bottom:12px;letter-spacing:-0.01em;">
+      <em style="color:var(--gold);">Premium</em> Airport<br>Transfers, Osaka
+    </h1>
+
+    <!-- ✏️ サブタイトル / Subtitle -->
+    <p class="hero-subtitle ja">アルファード & テスラで、非日常の乗り心地を</p>
+    <p class="hero-subtitle en" style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,24px);color:rgba(234,232,226,0.65);margin-bottom:20px;">Alphard & Tesla — ride in style</p>
+
+    <!-- ✏️ 説明文 / Body copy -->
+    <p class="ja">関西国際空港と大阪・神戸・京都・奈良を結ぶプレミアム送迎サービス。フライト追跡・遅延無料対応。英語スタッフ常駐。24時間365日承ります。</p>
+    <p class="en">Premium door-to-door transfers between KIX and Osaka, Kobe, Kyoto & Nara. Flight tracking, delay coverage at no extra charge. English-speaking support. Available 24/7.</p>
+
+    <div class="hero-actions">
+      <a class="btn-gold" href="#calculator">
+        <span class="ja">料金を調べる →</span>
+        <span class="en">Check Fares →</span>
+      </a>
+      <a class="btn-ghost" href="#fleet">
+        <span class="ja">車両を見る</span>
+        <span class="en">View Fleet</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ✏️ 統計数値 / Stats numbers -->
+  <div class="hero-stats">
+    <div class="stat-pill">
+      <div class="stat-num">24<span class="stat-unit">/7</span></div>
+      <div class="stat-label ja">年中無休<br>24時間対応</div>
+      <div class="stat-label en">Always<br>Available</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-num">99<span class="stat-unit">%</span></div>
+      <div class="stat-label ja">定刻出発率</div>
+      <div class="stat-label en">On-time Rate</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-num">3<span class="stat-unit">万+</span></div>
+      <div class="stat-label ja">送迎実績</div>
+      <div class="stat-label en">Trips Done</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span class="ja">スクロール</span>
+    <span class="en">Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+   ROUTE BANNER
+   ✏️ ルート停留所 / Route stops
+   ============================================================ -->
+<div class="route-banner">
+  <div class="route-node">
+    <div class="route-node-name ja">関西国際空港</div>
+    <div class="route-node-name en">Kansai Int'l Airport</div>
+    <div class="route-node-sub">KIX</div>
+  </div>
+  <div class="route-sep">
+    <div class="route-sep-line"></div>
+    <div class="route-sep-label ja">直行送迎</div>
+    <div class="route-sep-label en">Transfer</div>
+  </div>
+  <div class="route-node">
+    <div class="route-node-name ja">大阪市内</div>
+    <div class="route-node-name en">Osaka City</div>
+    <div class="route-node-sub">梅田・難波・心斎橋</div>
+  </div>
+  <div class="route-sep"><div class="route-sep-line"></div></div>
+  <div class="route-node">
+    <div class="route-node-name ja">神戸</div>
+    <div class="route-node-name en">Kobe</div>
+    <div class="route-node-sub">三宮・元町</div>
+  </div>
+  <div class="route-sep"><div class="route-sep-line"></div></div>
+  <div class="route-node">
+    <div class="route-node-name ja">京都</div>
+    <div class="route-node-name en">Kyoto</div>
+    <div class="route-node-sub">祇園・京都駅</div>
+  </div>
+  <div class="route-sep"><div class="route-sep-line"></div></div>
+  <div class="route-node">
+    <div class="route-node-name ja">奈良・和歌山</div>
+    <div class="route-node-name en">Nara · Wakayama</div>
+    <div class="route-node-sub ja">関西全域対応</div>
+    <div class="route-node-sub en">All Kansai</div>
+  </div>
+</div>
+
+<!-- ============================================================
+   FLEET SECTION
+   ✏️ 車両情報・画像を変更できます
+   ============================================================ -->
+<section id="fleet">
+  <div class="fleet-header">
+    <div class="sec-label ja">車両紹介</div>
+    <div class="sec-label en">Our Fleet</div>
+    <div class="sec-bar"></div>
+    <h2 class="sec-title ja">上質な2車種から<br>お選びいただけます</h2>
+    <h2 class="sec-title-en en">Choose Your<br>Perfect Ride</h2>
+    <p class="sec-sub ja">3代目アルファードの極上のホスピタリティと、テスラの革新的な乗り心地。どちらも最高の空港体験をお約束します。</p>
+    <p class="sec-sub en">The refined luxury of the 3rd Gen Alphard, or the silent innovation of Tesla. Both promise an unforgettable airport journey.</p>
+  </div>
+
+  <div class="fleet-grid">
+
+    <!-- ============================================================
+       ✏️ 車両1: 三代目アルファード / 3rd Gen Alphard
+       画像・スペック・説明を自由に変更してください
+       ============================================================ -->
+    <div class="fleet-card">
+      <div class="fleet-img-wrap">
+        <!-- ✏️ アルファードの画像URL / Alphard image URL -->
+        <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=85" alt="Toyota Alphard 3rd Generation">
+        <div class="fleet-img-gradient"></div>
+        <div class="fleet-badge ja">プレミアムMPV</div>
+        <div class="fleet-badge en">Premium MPV</div>
+      </div>
+      <div class="fleet-body">
+        <div class="fleet-name">Alphard</div>
+        <!-- ✏️ 車両名 (日本語) -->
+        <div class="fleet-name-ja ja">トヨタ 三代目 アルファード</div>
+        <div class="fleet-name-ja en">Toyota 3rd Generation Alphard</div>
+        <!-- ✏️ 説明文 / Description -->
+        <p class="fleet-desc ja">2023年にフルモデルチェンジを果たした最新世代のアルファード。独立した後部座席エグゼクティブシートは電動リクライニング&マッサージ機能付き。静粛性の高いハイブリッドシステムで滑らかな乗り心地を実現。空港送迎の最高峰にふさわしい一台です。</p>
+        <p class="fleet-desc en">The latest generation Alphard, fully redesigned in 2023. Features independent rear executive seats with power recline and massage. Hybrid drivetrain delivers whisper-quiet, silky-smooth performance — the pinnacle of airport luxury.</p>
+        <!-- ✏️ スペック数値 / Specs -->
+        <div class="fleet-specs">
+          <div class="fleet-spec">
+            <div class="fleet-spec-val">6</div>
+            <div class="fleet-spec-key ja">最大定員</div>
+            <div class="fleet-spec-key en">Max Pax</div>
+          </div>
+          <div class="fleet-spec">
+            <div class="fleet-spec-val">HEV</div>
+            <div class="fleet-spec-key ja">パワートレイン</div>
+            <div class="fleet-spec-key en">Powertrain</div>
+          </div>
+          <div class="fleet-spec">
+            <div class="fleet-spec-val">2023</div>
+            <div class="fleet-spec-key ja">モデルイヤー</div>
+            <div class="fleet-spec-key en">Model Year</div>
+          </div>
+        </div>
+        <!-- ✏️ 装備タグ / Feature tags -->
+        <div class="fleet-features">
+          <span class="feat-tag ja">電動リクライニング</span>
+          <span class="feat-tag en" style="display:none">Power Recline</span>
+          <span class="feat-tag ja">マッサージシート</span>
+          <span class="feat-tag en" style="display:none">Massage Seat</span>
+          <span class="feat-tag ja">フットレスト</span>
+          <span class="feat-tag en" style="display:none">Footrest</span>
+          <span class="feat-tag ja">大型荷物対応</span>
+          <span class="feat-tag en" style="display:none">Large Luggage</span>
+          <span class="feat-tag ja">Wi-Fi完備</span>
+          <span class="feat-tag en" style="display:none">Wi-Fi Onboard</span>
+          <span class="feat-tag ja">充電ポート</span>
+          <span class="feat-tag en" style="display:none">USB Charging</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+       ✏️ 車両2: テスラ / Tesla
+       ============================================================ -->
+    <div class="fleet-card">
+      <div class="fleet-img-wrap">
+        <!-- ✏️ テスラの画像URL / Tesla image URL -->
+        <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=900&q=85" alt="Tesla Electric Vehicle">
+        <div class="fleet-img-gradient"></div>
+        <div class="fleet-badge ja">フル電動EV</div>
+        <div class="fleet-badge en">Full Electric EV</div>
+      </div>
+      <div class="fleet-body">
+        <div class="fleet-name">Tesla</div>
+        <!-- ✏️ モデル名 (例: Model Y / Model S) -->
+        <div class="fleet-name-ja ja">テスラ Model Y</div>
+        <div class="fleet-name-ja en">Tesla Model Y</div>
+        <!-- ✏️ 説明文 -->
+        <p class="fleet-desc ja">完全電動で走るテスラは、エンジン音ゼロの静寂な車内と先進のAutopilot技術が魅力。大型タッチスクリーン、Over-the-Air自動アップデートで常に最新の状態を維持。環境に配慮しながらもパワフルな走りをご体験ください。</p>
+        <p class="fleet-desc en">Zero-emission silence meets cutting-edge technology. Tesla's massive touchscreen, Autopilot assist, and over-the-air updates make every ride feel like the future. Fast, smooth, and sustainably powered.</p>
+        <!-- ✏️ スペック -->
+        <div class="fleet-specs">
+          <div class="fleet-spec">
+            <div class="fleet-spec-val">5</div>
+            <div class="fleet-spec-key ja">最大定員</div>
+            <div class="fleet-spec-key en">Max Pax</div>
+          </div>
+          <div class="fleet-spec">
+            <div class="fleet-spec-val">EV</div>
+            <div class="fleet-spec-key ja">パワートレイン</div>
+            <div class="fleet-spec-key en">Powertrain</div>
+          </div>
+          <div class="fleet-spec">
+            <div class="fleet-spec-val">500<span style="font-size:14px">km</span></div>
+            <div class="fleet-spec-key ja">航続距離</div>
+            <div class="fleet-spec-key en">Range</div>
+          </div>
+        </div>
+        <!-- ✏️ 装備タグ -->
+        <div class="fleet-features">
+          <span class="feat-tag ja">完全電動</span>
+          <span class="feat-tag en" style="display:none">Zero Emission</span>
+          <span class="feat-tag ja">Autopilot</span>
+          <span class="feat-tag en" style="display:none">Autopilot</span>
+          <span class="feat-tag ja">15インチスクリーン</span>
+          <span class="feat-tag en" style="display:none">15" Touchscreen</span>
+          <span class="feat-tag ja">超高速充電</span>
+          <span class="feat-tag en" style="display:none">Supercharger</span>
+          <span class="feat-tag ja">Wi-Fi完備</span>
+          <span class="feat-tag en" style="display:none">Wi-Fi Onboard</span>
+          <span class="feat-tag ja">広大なトランク</span>
+          <span class="feat-tag en" style="display:none">Spacious Trunk</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /fleet-grid -->
+</section>
+
+<!-- ============================================================
+   ABOUT / COVERAGE
+   ✏️ 特徴・対応エリア・料金目安を変更できます
+   ============================================================ -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="sec-label ja">特徴・こだわり</div>
+      <div class="sec-label en">Why Choose Us</div>
+      <div class="sec-bar"></div>
+      <h2 class="sec-title ja">空港送迎に<br>特化したプロ集団</h2>
+      <h2 class="sec-title-en en">Kansai's Trusted<br>Airport Specialist</h2>
+      <p class="sec-sub ja">大阪を拠点に、関西国際空港の送迎だけを専門に手がけるプロフェッショナルチームです。英語対応のドライバーも在籍し、世界中からのお客様を笑顔でお迎えします。</p>
+      <p class="sec-sub en">A Osaka-based team dedicated exclusively to Kansai Airport transfers. English-speaking drivers available to welcome guests from around the world.</p>
+
+      <!-- ✏️ 特徴1〜4 / Features 1-4 -->
+      <div class="about-feature">
+        <div class="feat-icon">✈️</div>
+        <div class="feat-icon-text">
+          <h4><span class="ja">フライト追跡・遅延無料対応</span><span class="en">Flight Tracking & Free Delay Coverage</span></h4>
+          <p class="ja">リアルタイムでフライト情報を追跡。遅延が発生しても追加料金なしで対応します。</p>
+          <p class="en">We monitor your flight 24/7. No extra charge if your flight is delayed — your driver will always be there.</p>
+        </div>
+      </div>
+      <div class="about-feature">
+        <div class="feat-icon">🌐</div>
+        <div class="feat-icon-text">
+          <h4><span class="ja">日英バイリンガル対応</span><span class="en">Japanese & English Support</span></h4>
+          <p class="ja">日本語・英語に対応したドライバー・スタッフが常駐。外国人のお客様も安心してご利用いただけます。</p>
+          <p class="en">Bilingual drivers and booking staff in Japanese and English. International guests always feel welcome.</p>
+        </div>
+      </div>
+      <div class="about-feature">
+        <div class="feat-icon">🚪</div>
+        <div class="feat-icon-text">
+          <h4><span class="ja">ドアツードアサービス</span><span class="en">Door-to-Door Pickup</span></h4>
+          <p class="ja">ホテルのロビーから空港の搭乗ゲート手前まで、荷物を持ってお送りします。</p>
+          <p class="en">We meet you at hotel lobbies, home entrances, or offices — and escort you all the way to departures.</p>
+        </div>
+      </div>
+      <div class="about-feature">
+        <div class="feat-icon">🧾</div>
+        <div class="feat-icon-text">
+          <h4><span class="ja">法人対応・領収書発行</span><span class="en">Corporate Invoicing</span></h4>
+          <p class="ja">法人請求・月次精算・領収書発行に対応。出張の多い企業のご利用も大歓迎です。</p>
+          <p class="en">Corporate accounts, monthly billing, and official receipts available for business travelers and companies.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✏️ エリア・料金一覧 / Area price table -->
+    <div>
+      <div class="area-panel">
+        <div class="area-panel-title ja">主要エリア 料金目安（片道）</div>
+        <div class="area-panel-title en">Estimated One-Way Fares</div>
+        <div class="area-grid">
+          <!-- ✏️ 各エリア名・サブエリア・料金を変更してください -->
+          <div class="area-chip">
+            <div class="area-chip-name ja">大阪市内 中心部</div>
+            <div class="area-chip-name en">Osaka City Center</div>
+            <div class="area-chip-sub ja">梅田・難波・心斎橋</div>
+            <div class="area-chip-sub en">Umeda / Namba</div>
+            <div class="area-chip-price">¥8,000 〜 ¥12,000</div>
+          </div>
+          <div class="area-chip">
+            <div class="area-chip-name ja">神戸市内</div>
+            <div class="area-chip-name en">Kobe City</div>
+            <div class="area-chip-sub ja">三宮・元町・北野</div>
+            <div class="area-chip-sub en">Sannomiya / Motomachi</div>
+            <div class="area-chip-price">¥10,000 〜 ¥15,000</div>
+          </div>
+          <div class="area-chip">
+            <div class="area-chip-name ja">京都市内</div>
+            <div class="area-chip-name en">Kyoto City</div>
+            <div class="area-chip-sub ja">京都駅・祇園・嵐山</div>
+            <div class="area-chip-sub en">Kyoto Stn / Gion</div>
+            <div class="area-chip-price">¥15,000 〜 ¥22,000</div>
+          </div>
+          <div class="area-chip">
+            <div class="area-chip-name ja">奈良市内</div>
+            <div class="area-chip-name en">Nara City</div>
+            <div class="area-chip-sub ja">東大寺・近鉄奈良</div>
+            <div class="area-chip-sub en">Todai-ji / Kintetsu Nara</div>
+            <div class="area-chip-price">¥18,000 〜 ¥25,000</div>
+          </div>
+          <div class="area-chip">
+            <div class="area-chip-name ja">和歌山・白浜</div>
+            <div class="area-chip-name en">Wakayama / Shirahama</div>
+            <div class="area-chip-sub ja">和歌山市内・白浜温泉</div>
+            <div class="area-chip-sub en">Wakayama City / Resort</div>
+            <div class="area-chip-price">¥22,000 〜 ¥35,000</div>
+          </div>
+          <div class="area-chip">
+            <div class="area-chip-name ja">大阪府下全域</div>
+            <div class="area-chip-name en">Greater Osaka</div>
+            <div class="area-chip-sub ja">堺・吹田・豊中・高槻</div>
+            <div class="area-chip-sub en">Sakai / Suita / Toyonaka</div>
+            <div class="area-chip-price">¥10,000 〜 ¥18,000</div>
+          </div>
+        </div>
+        <!-- ✏️ 注記 / Footnote -->
+        <p class="area-note ja">※ 上記は普通セダン（1〜4名）の目安料金です。アルファード・グループ利用は別途ご案内します。高速料金は実費加算となります。</p>
+        <p class="area-note en">* Prices shown are estimates for standard sedan (1–4 pax). Alphard and group rates available on request. Expressway tolls charged at cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+   SERVICES
+   ✏️ サービスカードの内容を変更できます
+   ============================================================ -->
+<section id="services">
+  <div class="sec-label ja">サービス内容</div>
+  <div class="sec-label en">Our Services</div>
+  <div class="sec-bar"></div>
+  <h2 class="sec-title ja">あらゆる旅のシーンに<br>対応したプランをご用意</h2>
+  <h2 class="sec-title-en en">A Service for<br>Every Journey</h2>
+  <p class="sec-sub ja">到着・出発・グループ・VIPまで、あらゆるご要望にお応えします。</p>
+  <p class="sec-sub en">Arrivals, departures, groups, VIPs — we have a plan for every traveler.</p>
+
+  <div class="services-grid">
+    <!-- ✏️ サービスカード / Service cards — アイコン・タイトル・説明・タグを変更できます -->
+    <div class="svc-card">
+      <span class="svc-icon">🛬</span>
+      <div class="svc-title ja">到着お迎えサービス</div>
+      <div class="svc-title en">Airport Pick-Up</div>
+      <p class="svc-desc ja">到着ゲートでネームボードを持ってお待ちしております。フライト遅延時も無料でお待ちします。</p>
+      <p class="svc-desc en">We meet you at arrivals with a name board. Free waiting time for delayed flights — no excuses, no extras.</p>
+      <span class="svc-tag ja">24時間対応</span>
+      <span class="svc-tag en">24/7 Available</span>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">🛫</span>
+      <div class="svc-title ja">出発お見送りサービス</div>
+      <div class="svc-title en">Airport Drop-Off</div>
+      <p class="svc-desc ja">ご自宅・ホテルまでお迎えし、余裕を持って空港までお届けします。大きなスーツケースもお任せください。</p>
+      <p class="svc-desc en">We pick you up at your door and deliver you to departures with plenty of time to spare.</p>
+      <span class="svc-tag ja">ドアツードア</span>
+      <span class="svc-tag en">Door-to-Door</span>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">👨‍👩‍👧‍👦</span>
+      <div class="svc-title ja">グループ・ファミリー</div>
+      <div class="svc-title en">Group & Family</div>
+      <p class="svc-desc ja">大型アルファードで最大6名まで対応。大きな荷物やベビーカーもゆとりを持って積み込めます。</p>
+      <p class="svc-desc en">Alphard accommodates up to 6 passengers with ample luggage space — perfect for families and groups.</p>
+      <span class="svc-tag ja">最大6名</span>
+      <span class="svc-tag en">Up to 6 pax</span>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">💼</span>
+      <div class="svc-title ja">ビジネス・VIPサービス</div>
+      <div class="svc-title en">Business & VIP</div>
+      <p class="svc-desc ja">法人請求・領収書発行対応。VIPアルファードで格式高いビジネス送迎をご提供します。</p>
+      <p class="svc-desc en">Corporate billing, receipts, and VIP Alphard chauffeur service for executives and business guests.</p>
+      <span class="svc-tag ja">法人対応可</span>
+      <span class="svc-tag en">Corporate OK</span>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">🌿</span>
+      <div class="svc-title ja">エコ・テスラプラン</div>
+      <div class="svc-title en">Eco Tesla Plan</div>
+      <p class="svc-desc ja">ゼロエミッションのテスラで、環境に配慮したスマートな移動を。静粛性と先進テクノロジーをお楽しみください。</p>
+      <p class="svc-desc en">Zero-emission Tesla transfer for eco-conscious travelers. Whisper-quiet, tech-forward, and sustainably powered.</p>
+      <span class="svc-tag ja">CO₂ゼロ</span>
+      <span class="svc-tag en">Zero Emission</span>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">🏯</span>
+      <div class="svc-title ja">関西観光チャーター</div>
+      <div class="svc-title en">Kansai Day Tour</div>
+      <p class="svc-desc ja">京都・奈良・神戸・姫路など関西の人気観光地をプライベートでご案内。ルートはご相談の上決定します。</p>
+      <p class="svc-desc en">Private day tours to Kyoto, Nara, Kobe, Himeji and beyond. Custom routes tailored to your interests.</p>
+      <span class="svc-tag ja">半日〜1日</span>
+      <span class="svc-tag en">Half / Full Day</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+   FARE CALCULATOR
+   ✏️ 料金計算機のエリア・ベース料金を変更できます
+   ============================================================ -->
+<section id="calculator">
+  <div style="text-align:center;margin-bottom:52px;">
+    <div class="sec-label ja" style="text-align:center;">料金計算ツール</div>
+    <div class="sec-label en" style="text-align:center;">Fare Estimator</div>
+    <div class="sec-bar" style="margin:10px auto 18px;"></div>
+    <h2 class="sec-title ja" style="text-align:center;">ご乗車前に<br>料金を確認</h2>
+    <h2 class="sec-title-en en" style="text-align:center;">Estimate Your<br>Transfer Fare</h2>
+    <p class="sec-sub ja" style="margin:0 auto;text-align:center;">目的地・車両を選ぶだけで概算料金をすぐ確認できます。</p>
+    <p class="sec-sub en" style="margin:0 auto;text-align:center;">Select destination and vehicle for an instant estimate.</p>
+  </div>
+  <div class="calc-wrap">
+    <div class="calc-card">
+      <div class="calc-head">
+        <div class="calc-head-icon">✈</div>
+        <div>
+          <div class="calc-head-title ja">関空 送迎料金 見積もり</div>
+          <div class="calc-head-title en">KIX Transfer Fare Estimate</div>
+          <div class="calc-head-sub ja">実際の料金は距離・状況により異なる場合があります</div>
+          <div class="calc-head-sub en">Final fare may vary based on distance and conditions</div>
+        </div>
+      </div>
+      <div class="calc-body">
+
+        <label class="flabel ja">乗車方向</label>
+        <label class="flabel en">Direction</label>
+        <div class="radio-row">
+          <div class="rbtn on" onclick="setDir(this,'arr')">
+            <div class="ja">✈ 到着（空港 → 目的地）</div>
+            <div class="en">✈ Arrival (Airport → Dest.)</div>
+          </div>
+          <div class="rbtn" onclick="setDir(this,'dep')">
+            <div class="ja">🛫 出発（目的地 → 空港）</div>
+            <div class="en">🛫 Departure (Dest. → Airport)</div>
+          </div>
+        </div>
+
+        <label class="flabel ja">目的地エリア</label>
+        <label class="flabel en">Destination Area</label>
+        <!-- ✏️ エリアと基本料金 data-base を変更してください -->
+        <select class="fselect" id="calc-area">
+          <option value="10000">大阪市内 中心部 / Osaka City Center（梅田・難波）</option>
+          <option value="13000">大阪市内 南部・東部 / South/East Osaka（天王寺・住之江）</option>
+          <option value="14000">大阪府北部 / North Osaka（吹田・豊中・高槻）</option>
+          <option value="13000">神戸市内 / Kobe City（三宮・元町）</option>
+          <option value="18000">京都市内 / Kyoto City（京都駅・祇園）</option>
+          <option value="20000">奈良市内 / Nara City</option>
+          <option value="25000">和歌山・白浜 / Wakayama / Shirahama</option>
+          <option value="22000">姫路市内 / Himeji City</option>
+        </select>
+
+        <label class="flabel ja">車両タイプ</label>
+        <label class="flabel en">Vehicle</label>
+        <div class="radio-row">
+          <!-- ✏️ 車両倍率 data-mul -->
+          <div class="rbtn on" onclick="setVehicle(this, 1.0)">
+            <div class="ja">🚗 テスラ<br><span style="font-size:10px;color:var(--text-muted)">1〜4名</span></div>
+            <div class="en">🚗 Tesla<br><span style="font-size:10px;color:var(--text-muted)">1–4 pax</span></div>
+          </div>
+          <div class="rbtn" onclick="setVehicle(this, 1.35)">
+            <div class="ja">⭐ アルファード<br><span style="font-size:10px;color:var(--text-muted)">1〜6名</span></div>
+            <div class="en">⭐ Alphard<br><span style="font-size:10px;color:var(--text-muted)">1–6 pax</span></div>
+          </div>
+          <div class="rbtn" onclick="setVehicle(this, 1.8)">
+            <div class="ja">👑 VIPアルファード<br><span style="font-size:10px;color:var(--text-muted)">プレミアム</span></div>
+            <div class="en">👑 VIP Alphard<br><span style="font-size:10px;color:var(--text-muted)">Premium</span></div>
+          </div>
+        </div>
+
+        <label class="flabel ja">時間帯</label>
+        <label class="flabel en">Travel Time</label>
+        <div class="radio-row">
+          <div class="rbtn on" onclick="setNight(this, 1.0)">
+            <div class="ja">☀️ 日中（6:00〜22:00）</div>
+            <div class="en">☀️ Daytime (6:00–22:00)</div>
+          </div>
+          <div class="rbtn" onclick="setNight(this, 1.15)">
+            <div class="ja">🌙 深夜・早朝（22:00〜6:00）</div>
+            <div class="en">🌙 Late Night (22:00–6:00)</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+          <input type="checkbox" id="hw" checked style="accent-color:var(--gold);width:16px;height:16px;cursor:pointer;">
+          <label for="hw" style="font-size:13px;color:var(--text-muted);cursor:pointer;">
+            <span class="ja">高速道路利用（推奨・実費加算）</span>
+            <span class="en">Use expressway (recommended, toll at cost)</span>
+          </label>
+        </div>
+
+        <button class="btn-gold" onclick="doCalc()" style="width:100%;text-align:center;padding:14px;">
+          <span class="ja">料金を計算する</span>
+          <span class="en">Calculate Fare</span>
+        </button>
+
+        <div class="calc-result" id="calc-result">
+          <div class="res-label ja">概算料金（税込）</div>
+          <div class="res-label en">Estimated Fare (Tax Included)</div>
+          <div class="res-price-row">
+            <div class="res-curr">¥</div>
+            <div class="res-price" id="rp-min">—</div>
+            <div class="res-range">〜 ¥<span id="rp-max">—</span></div>
+          </div>
+          <div class="breakdown">
+            <div class="bk"><span class="bk-l ja">基本料金</span><span class="bk-l en" style="display:none">Base Fare</span><span class="bk-v" id="bd-base">—</span></div>
+            <div class="bk"><span class="bk-l ja">車両</span><span class="bk-l en" style="display:none">Vehicle</span><span class="bk-v" id="bd-veh">—</span></div>
+            <div class="bk"><span class="bk-l ja">時間帯</span><span class="bk-l en" style="display:none">Time</span><span class="bk-v" id="bd-night">—</span></div>
+            <div class="bk"><span class="bk-l ja">高速料金（目安）</span><span class="bk-l en" style="display:none">Expressway</span><span class="bk-v" id="bd-hw">—</span></div>
+          </div>
+          <!-- ✏️ 注記 / Calculator note -->
+          <p class="calc-note ja">※ 上記は概算です。高速料金は実費となります。フライト遅延による30分以内の待機は無料です。正確なお見積もりはお問い合わせください。</p>
+          <p class="calc-note en">* Estimate only. Expressway tolls charged at cost. First 30 min of delay waiting is free. Contact us for an exact quote.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+   CONTACT
+   ✏️ 連絡先情報を変更してください
+   ============================================================ -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="sec-label ja">お問い合わせ</div>
+      <div class="sec-label en">Contact Us</div>
+      <div class="sec-bar"></div>
+      <h2 class="sec-title ja" style="margin-bottom:32px;">いつでも<br>ご予約・ご相談を</h2>
+      <h2 class="sec-title-en en" style="margin-bottom:32px;">We're Here<br>to Help</h2>
+
+      <!-- ✏️ 各連絡先 / Contact details — labelとcontentを変更してください -->
+      <div class="cinfo-item">
+        <div class="cinfo-icon">📞</div>
+        <div class="cinfo-text">
+          <strong><span class="ja">予約専用ダイヤル</span><span class="en">Reservation Hotline</span></strong>
+          <!-- ✏️ 電話番号 -->
+          <span>06-0000-0000</span><br>
+          <span style="font-size:11px;color:var(--text-muted);" class="ja">24時間・年中無休</span>
+          <span style="font-size:11px;color:var(--text-muted);" class="en">24 hours, 365 days</span>
+        </div>
+      </div>
+      <div class="cinfo-item">
+        <div class="cinfo-icon">✉️</div>
+        <div class="cinfo-text">
+          <strong>Email</strong>
+          <!-- ✏️ メールアドレス -->
+          <span>info@kix-shuttle.jp</span><br>
+          <span style="font-size:11px;color:var(--text-muted);" class="ja">日本語・英語対応</span>
+          <span style="font-size:11px;color:var(--text-muted);" class="en">Japanese & English</span>
+        </div>
+      </div>
+      <div class="cinfo-item">
+        <div class="cinfo-icon">💬</div>
+        <div class="cinfo-text">
+          <strong>LINE / WhatsApp</strong>
+          <!-- ✏️ LINE ID / WhatsApp number -->
+          <span class="ja">LINE ID: @kix-shuttle</span>
+          <span class="en">LINE ID: @kix-shuttle</span>
+        </div>
+      </div>
+      <div class="cinfo-item">
+        <div class="cinfo-icon">📍</div>
+        <div class="cinfo-text">
+          <strong><span class="ja">所在地</span><span class="en">Location</span></strong>
+          <!-- ✏️ 住所 -->
+          <span class="ja">大阪府大阪市〇〇区〇〇町1-1-1</span>
+          <span class="en">Osaka City, Osaka Prefecture, Japan</span>
+        </div>
+      </div>
+      <div class="cinfo-item">
+        <div class="cinfo-icon">🕐</div>
+        <div class="cinfo-text">
+          <strong><span class="ja">営業時間</span><span class="en">Hours</span></strong>
+          <span class="ja">365日・24時間対応</span>
+          <span class="en">Open 24/7, every day of the year</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cform">
+      <div class="sec-label ja">オンライン予約・お問い合わせ</div>
+      <div class="sec-label en">Online Inquiry & Booking</div>
+      <div class="sec-bar"></div>
+      <h3 class="sec-title ja" style="font-size:22px;margin-bottom:20px;">ご予約フォーム</h3>
+      <h3 class="sec-title-en en" style="font-size:22px;margin-bottom:20px;">Send a Message</h3>
+
+      <!-- ✏️ フォームプレースホルダー / Form placeholders -->
+      <input class="finput" type="text"  id="cf-name"   placeholder="お名前 / Your Name">
+      <input class="finput" type="text"  id="cf-flight" placeholder="便名（例: JL123）/ Flight No.">
+      <input class="finput" type="text"  id="cf-date"   placeholder="乗車日時 / Date & Time (e.g. 2025-08-01 14:30)">
+      <select class="fselect" id="cf-type">
+        <option>到着お迎え / Airport Pick-Up</option>
+        <option>出発お見送り / Airport Drop-Off</option>
+        <option>観光チャーター / Sightseeing Charter</option>
+        <option>その他 / Other Inquiry</option>
+      </select>
+      <textarea id="cf-msg" placeholder="ご要望・ご質問など / Message or special requests"></textarea>
+      <button class="btn-gold" onclick="doSubmit()" style="width:100%;text-align:center;padding:14px;">
+        <span class="ja">送信する</span>
+        <span class="en">Send Message</span>
+      </button>
+      <div class="form-success" id="form-ok">
+        <span class="ja">✅ お問い合わせを受け付けました。24時間以内にご連絡いたします。</span>
+        <span class="en">✅ Message received! We'll get back to you within 24 hours.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+   FOOTER
+   ✏️ フッター情報を変更できます
+   ============================================================ -->
+<footer>
+  <div>
+    <!-- ✏️ フッターブランド名 -->
+    <div class="footer-brand-main">KIX Shuttle</div>
+    <div class="footer-brand-sub ja">KANSAI AIRPORT TRANSFER · OSAKA, JAPAN</div>
+    <div class="footer-brand-sub en">OSAKA, JAPAN · KANSAI INT'L AIRPORT</div>
+  </div>
+  <!-- ✏️ コピーライト -->
+  <div class="footer-copy ja">© 2024 KIX Shuttle 株式会社 · 大阪府知事認可</div>
+  <div class="footer-copy en">© 2024 KIX Shuttle Co., Ltd. · Osaka, Japan</div>
+  <div class="footer-links">
+    <a href="#"><span class="ja">利用規約</span><span class="en">Terms</span></a>
+    <a href="#"><span class="ja">プライバシー</span><span class="en">Privacy</span></a>
+    <a href="#"><span class="ja">採用情報</span><span class="en">Careers</span></a>
+  </div>
+</footer>
+
+<!-- ============================================================
+   JAVASCRIPT
+   ============================================================ -->
+<script>
+/* ---------- Language ---------- */
+function setLang(lang) {
+  document.body.className = lang === 'en' ? 'lang-en' : '';
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === (lang === 'en' ? 'English' : '日本語'));
+  });
+  /* fleet feat-tags need individual toggle */
+  document.querySelectorAll('.fleet-features .feat-tag').forEach(t => {
+    const isEn = t.classList.contains('en');
+    t.style.display = (lang === 'en') === isEn ? 'inline-block' : 'none';
+  });
+  /* bk-l labels */
+  document.querySelectorAll('.bk-l').forEach(el => {
+    const isEn = el.classList.contains('en');
+    el.style.display = (lang === 'en') === isEn ? 'inline' : 'none';
+  });
+}
+
+/* ---------- Calculator ---------- */
+let vehicleMul = 1.0, nightMul = 1.0;
+
+function setDir(el, val) {
+  el.closest('.radio-row').querySelectorAll('.rbtn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+function setVehicle(el, mul) {
+  el.closest('.radio-row').querySelectorAll('.rbtn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  vehicleMul = mul;
+}
+function setNight(el, mul) {
+  el.closest('.radio-row').querySelectorAll('.rbtn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  nightMul = mul;
+}
+
+function doCalc() {
+  const base = parseInt(document.getElementById('calc-area').value);
+  const hw   = document.getElementById('hw').checked;
+  const hwFee = hw ? 2400 : 0;
+  const total = Math.round(base * vehicleMul * nightMul + hwFee);
+  const min   = Math.round(total * 0.92 / 100) * 100;
+  const max   = Math.round(total * 1.12 / 100) * 100;
+
+  const vLabel = vehicleMul === 1.0 ? 'Tesla' : vehicleMul === 1.35 ? 'Alphard' : 'VIP Alphard';
+  document.getElementById('rp-min').textContent  = min.toLocaleString();
+  document.getElementById('rp-max').textContent  = max.toLocaleString();
+  document.getElementById('bd-base').textContent  = '¥' + base.toLocaleString();
+  document.getElementById('bd-veh').textContent   = vLabel + ' ×' + vehicleMul.toFixed(2);
+  document.getElementById('bd-night').textContent = nightMul > 1 ? '+15%' : '—';
+  document.getElementById('bd-hw').textContent    = hw ? '¥' + hwFee.toLocaleString() : '—';
+
+  const res = document.getElementById('calc-result');
+  res.classList.add('show');
+  res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ---------- Contact form ---------- */
+function doSubmit() {
+  const name = document.getElementById('cf-name').value.trim();
+  if (!name) { alert('お名前をご入力ください / Please enter your name'); return; }
+  document.getElementById('form-ok').classList.add('show');
+  ['cf-name','cf-flight','cf-date','cf-msg'].forEach(id => document.getElementById(id).value = '');
+  setTimeout(() => document.getElementById('form-ok').classList.remove('show'), 6000);
+}
+</script>
+
+</body>
+</html>
